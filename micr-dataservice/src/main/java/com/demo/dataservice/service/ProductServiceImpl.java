@@ -18,6 +18,14 @@ public class ProductServiceImpl implements ProductService {
     @Resource
     private ProductInfoMapper productInfoMapper;
 
+    /**
+     * 根据产品类型，查询产品，支持分页
+     *
+     * @param pType
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<ProductInfo> queryByTypeLimit(Integer pType, Integer pageNo, Integer pageSize) {
         List<ProductInfo> productInfos = new ArrayList<>();
@@ -30,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
         return productInfos;
     }
 
+    /**
+     * 首页的多个产品数据
+     *
+     * @return
+     */
     @Override
     public MultiProduct queryIndexPageProducts() {
         MultiProduct result = new MultiProduct();
@@ -48,6 +61,12 @@ public class ProductServiceImpl implements ProductService {
         return result;
     }
 
+    /**
+     * 某个产品的记录总数
+     *
+     * @param pType
+     * @return
+     */
     @Override
     public Integer queryRecordNumsByType(Integer pType) {
         Integer counts = 0;
@@ -55,5 +74,20 @@ public class ProductServiceImpl implements ProductService {
             counts = productInfoMapper.selectCountByType(pType);
         }
         return counts;
+    }
+
+    /**
+     * 根据产品id，查询产品信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ProductInfo queryById(Integer id) {
+        ProductInfo productInfo = null;
+        if (id != null && id > 0) {
+            productInfo = productInfoMapper.selectByPrimaryKey(id);
+        }
+        return productInfo;
     }
 }

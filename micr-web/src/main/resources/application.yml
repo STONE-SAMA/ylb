@@ -25,3 +25,9 @@ dubbo:
     timeout: 50000
     retries: 0
     check: false
+
+duanxin:
+  sms:
+    url:
+    appkey:
+    content: [财富网]你的验证码是:%s,3分钟内有效，请勿泄露。

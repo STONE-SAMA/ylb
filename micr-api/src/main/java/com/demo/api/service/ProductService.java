@@ -30,4 +30,11 @@ public interface ProductService {
      */
     Integer queryRecordNumsByType(Integer pType);
 
+    /**
+     * 根据产品id，查询产品信息
+     * @param id
+     * @return
+     */
+    ProductInfo queryById(Integer id);
+
 }

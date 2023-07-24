@@ -1,6 +1,7 @@
 package com.demo.front.controller;
 
 import com.demo.api.model.ProductInfo;
+import com.demo.api.pojo.BidInfoProduct;
 import com.demo.api.pojo.MultiProduct;
 import com.demo.front.view.PageInfo;
 import com.demo.front.view.RespResult;
@@ -28,7 +29,7 @@ public class ProductController extends BaseController {
     }
 
     //按产品类型分页查询
-    @ApiOperation(value = "")
+    @ApiOperation(value = "产品分页查询", notes = "按产品类型分页查询")
     @GetMapping("/product/list")
     public RespResult queryProductByType(@RequestParam("pType") Integer pType,
                                          @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -48,7 +49,7 @@ public class ProductController extends BaseController {
                 result = RespResult.ok();
                 result.setList(productInfos);
                 result.setPage(page);
-            }else {
+            } else {
                 result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
                 result.setMsg("产品数量为空");
             }
@@ -59,5 +60,36 @@ public class ProductController extends BaseController {
         }
         return result;
     }
+
+
+    /**
+     * 查询某个产品的详情和投资记录
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "产品的详情和投资记录", notes = "查询某个产品的详情和投资记录")
+    @GetMapping("/product/info")
+    public RespResult queryProductDetail(@RequestParam("productId") Integer id) {
+        RespResult result = RespResult.fail();
+        if (id != null && id > 0) {
+            //调用产品查询
+            ProductInfo productInfo = productService.queryById(id);
+            if (productInfo != null) {
+                //查询投资记录
+                List<BidInfoProduct> bidInfoProducts = investService.queryBidListByProductId(id, 1, 5);
+                //查询成功
+                result = RespResult.ok();
+                result.setData(productInfo);
+                result.setList(bidInfoProducts);
+            }else {
+                result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                result.setMsg("产品已下线！");
+            }
+
+        }
+        return result;
+    }
+
 
 }
