@@ -11,6 +11,12 @@ public interface UserMapper {
     //根据手机号查询用户
     User selectByPhone(@Param("phone") String phone);
 
+    //添加记录,获取主键值
+    int insertReturnPrimaryKey(User user);
+
+    //登录
+    User selectLogin(@Param("phone") String phone, @Param("loginPassword") String password);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);

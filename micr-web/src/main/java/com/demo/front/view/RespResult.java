@@ -18,6 +18,8 @@ public class RespResult {
     private List list;
     //分页
     private PageInfo page;
+    //Token
+    private String accessToken;
 
 
     //表示成功的RespResult对象
@@ -74,5 +76,13 @@ public class RespResult {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

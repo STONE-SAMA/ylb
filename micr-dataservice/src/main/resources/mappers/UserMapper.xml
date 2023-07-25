@@ -28,11 +28,27 @@
         where phone=#{phone}
     </select>
 
+    <insert id="insertReturnPrimaryKey">
+        insert into u_user(phone, login_password,add_time)
+        values(#{phone},#{loginPassword},#{addTime})
+        <selectKey keyColumn="newId" keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID() as newId
+        </selectKey>
+    </insert>
+
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from u_user
         where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectLogin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from u_user
+        where phone=#{phone} and login_password = #{loginPassword}
     </select>
 
 
@@ -104,6 +120,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.demo.api.model.User">
         update u_user
         <set>

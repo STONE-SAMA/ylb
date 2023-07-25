@@ -26,8 +26,6 @@ dubbo:
     retries: 0
     check: false
 
-duanxin:
-  sms:
-    url:
-    appkey:
-    content: [财富网]你的验证码是:%s,3分钟内有效，请勿泄露。
+jwt:
+  secret: 342903934cb944808920b642616b3e76
+
