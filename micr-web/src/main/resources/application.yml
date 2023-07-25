@@ -29,3 +29,10 @@ dubbo:
 jwt:
   secret: 342903934cb944808920b642616b3e76
 
+aliyun:
+  sms:
+    appcode: e666a3f985324f5e87ab702ac766539b
+    smsSignId: 2e65b1bb3d054466b82f0c9d125465e2
+    loginTemplateId: 02551a4313154fe4805794ca069d70bf
+    registerTemplated: a09602b817fd47e59e7c6e603d3f088d
+
