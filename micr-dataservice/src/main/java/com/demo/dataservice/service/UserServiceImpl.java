@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
                 //成功
                 res = 1;
-            }else {
+            } else {
                 //手机号存在
                 res = 2;
             }
@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登录
+     *
      * @param phone
      * @param password
      * @return
@@ -97,10 +98,24 @@ public class UserServiceImpl implements UserService {
         String newPassword = DigestUtils.md5Hex(password + passwordSalt);
         user = userMapper.selectLogin(phone, newPassword);
         //更新最后的登录时间
-        if (user!=null){
+        if (user != null) {
             user.setLastLoginTime(new Date());
             userMapper.updateByPrimaryKeySelective(user);
         }
         return user;
+    }
+
+    /**
+     * 更新实名认证信息
+     *
+     * @param phone
+     * @param name
+     * @param idCard
+     * @return
+     */
+    @Override
+    public boolean modifyRealname(String phone, String name, String idCard) {
+        int rows = userMapper.updateRealname(phone, name, idCard);
+        return rows > 0;
     }
 }

@@ -4,6 +4,8 @@ public class Constants {
     public static final int RETURN_OBJECT_CODE_SUCCESS=1;//成功
     public static final int RETURN_OBJECT_CODE_FAIL=0;//失败
 
+    public static final int RETURN_OBJECT_CODE_TOKEN_FAIL=3000;//TOKEN失效
+
     /*****产品类型*********/
     //新手宝
     public static final  int PRODUCT_TYPE_XINSHOUBAO =  0;

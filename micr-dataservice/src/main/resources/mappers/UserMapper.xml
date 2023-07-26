@@ -51,6 +51,13 @@
         where phone=#{phone} and login_password = #{loginPassword}
     </select>
 
+    <update id="updateRealname">
+        update u_user
+        set name=#{name},
+            id_card=#{idCard}
+        where phone = #{phone}
+    </update>
+
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -159,4 +166,5 @@
             header_image    = #{headerImage,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
 </mapper>

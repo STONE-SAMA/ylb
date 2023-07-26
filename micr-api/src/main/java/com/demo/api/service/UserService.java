@@ -13,4 +13,6 @@ public interface UserService {
     //登录
     User userLogin(String phone, String pword);
 
+    //更新实名认证信息
+    boolean modifyRealname(String phone, String name, String idCard);
 }

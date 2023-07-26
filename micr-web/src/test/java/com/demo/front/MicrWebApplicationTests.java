@@ -18,10 +18,29 @@ class MicrWebApplicationTests {
     @Test
     void contextLoads() {
         String s = "{\"msg\":\"成功\",\"smsid\":\"16901688754041268511283883\",\"code\":\"0\",\"balance\":\"19\"}";
-        JSONObject jsonObject = JSONObject.parseObject(s);
+        String ss = "{\n" +
+                "    \"msg\": \"成功\",\n" +
+                "    \"success\": true,\n" +
+                "    \"code\": 200,\n" +
+                "    \"data\": {\n" +
+                "        \"birthday\": \"20020810\",\n" +
+                "        \"result\": 0, //0:一致，1:不一致，2：库无\n" +
+                "        \"address\": \"浙江省*******绍兴市\", //证件户籍地址\n" +
+                "        \"orderNo\": \"202304021731265602998\",\n" +
+                "        \"sex\": \"男\",\n" +
+                "        \"desc\": \"一致\"\n" +
+                "    }\n" +
+                "}";
+//        JSONObject jsonObject = JSONObject.parseObject(s);
+//        System.out.println(Integer.valueOf(jsonObject.get("code").toString()));
+//        System.out.println(Integer.valueOf(jsonObject.get("code").toString())==0);
 
-        System.out.println(Integer.valueOf(jsonObject.get("code").toString()));
-        System.out.println(Integer.valueOf(jsonObject.get("code").toString())==0);
+        JSONObject jsonObject = JSONObject.parseObject(ss);
+//        System.out.println(jsonObject.get("data"));
+        JSONObject object = (JSONObject) jsonObject.get("data");
+        System.out.println(object.get("result"));
+        System.out.println(Integer.valueOf(object.get("result").toString()));
+
     }
 
     @Test

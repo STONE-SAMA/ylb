@@ -29,5 +29,5 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-
+    int updateRealname(@Param("phone") String phone, @Param("name") String name, @Param("idCard") String idCard);
 }

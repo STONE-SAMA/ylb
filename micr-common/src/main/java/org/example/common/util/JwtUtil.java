@@ -1,5 +1,6 @@
 package org.example.common.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -20,7 +21,7 @@ public class JwtUtil {
     }
 
     //创建jwt
-    public String createJwt(Map<String, Object> data, Integer minute) throws Exception{
+    public String createJwt(Map<String, Object> data, Integer minute) throws Exception {
         SecretKey secretKey = Keys.hmacShaKeyFor(selfKey.getBytes(StandardCharsets.UTF_8));
         Date curDate = new Date();
         String jwt = Jwts.builder().signWith(secretKey, SignatureAlgorithm.HS256)
@@ -32,4 +33,10 @@ public class JwtUtil {
         return jwt;
     }
 
+    public Claims readJwt(String jwt) {
+        SecretKey secretKey = Keys.hmacShaKeyFor(selfKey.getBytes(StandardCharsets.UTF_8));
+        Claims body = Jwts.parserBuilder().setSigningKey(secretKey)
+                .build().parseClaimsJws(jwt).getBody();
+        return body;
+    }
 }

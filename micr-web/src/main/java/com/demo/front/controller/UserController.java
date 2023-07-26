@@ -2,10 +2,13 @@ package com.demo.front.controller;
 
 import com.demo.api.model.User;
 import com.demo.front.service.SmsService;
+import com.demo.front.service.impl.RealnameServiceImpl;
 import com.demo.front.view.RespResult;
+import com.demo.front.vo.RealnameVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.example.common.constants.Constants;
 import org.example.common.util.CommonUtil;
 import org.example.common.util.JwtUtil;
@@ -25,6 +28,9 @@ public class UserController extends BaseController {
 
     @Resource(name = "smsCodeLoginImpl")
     private SmsService loginSmsService;
+
+    @Resource
+    private RealnameServiceImpl realnameService;
 
     @Resource
     private JwtUtil jwtUtil;
@@ -115,9 +121,9 @@ public class UserController extends BaseController {
                                 @RequestParam String pword,
                                 @RequestParam String scode) throws Exception {
         RespResult result = RespResult.fail();
-        if (loginSmsService.checkSmsCode(phone, scode)){
+        if (loginSmsService.checkSmsCode(phone, scode)) {
             User user = userService.userLogin(phone, scode);
-            if (user!=null){
+            if (user != null) {
                 //登录成功，生成token
                 Map<String, Object> data = new HashMap<>();
                 data.put("uid", user.getId());
@@ -131,12 +137,47 @@ public class UserController extends BaseController {
                 userInfo.put("phone", user.getPhone());
                 userInfo.put("name", user.getName());
                 result.setData(userInfo);
-            }else {
+            } else {
                 result.setMsg("登录失败！");
             }
         }
         return result;
     }
 
+
+    /**
+     * 实名认证
+     *
+     * @return
+     */
+    @ApiOperation(value = "实名认证", notes = "提供手机号、姓名、身份证号，进行实名认证")
+    @PostMapping("/realname")
+    public RespResult userRealname(@RequestBody RealnameVO realnameVO) {
+        RespResult result = RespResult.fail();
+        result.setMsg("参数有误");
+        //验证请求参数
+        if (StringUtils.isNotBlank(realnameVO.getPhone()) &&
+                StringUtils.isNotBlank(realnameVO.getIdCard())) {
+            //判断用户是否已实名
+            User user = userService.queryByPhone(realnameVO.getPhone());
+            if (user!=null){
+                if (StringUtils.isNotBlank(user.getName())){
+                    result.setMsg("已实名！");
+                }else {
+                    //TODO 发送短信验证码
+                    //调用三方接口
+                    boolean realnameRes = realnameService.handleRealname(realnameVO.getPhone(), realnameVO.getName(), realnameVO.getIdCard());
+                    if (realnameRes){
+                        result = RespResult.ok();
+                        result.setMsg("身份认证成功");
+                    }else {
+                        result.setMsg("身份认证失败");
+                    }
+                }
+            }
+
+        }
+        return result;
+    }
 
 }
