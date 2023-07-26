@@ -25,6 +25,9 @@ public class SmsController extends BaseController {
     @Resource(name = "smsCodeLoginImpl")
     private SmsService loginSmsService;
 
+    @Resource(name = "smsCodeRealnameImpl")
+    private SmsService realnameSmsService;
+
 
     //发送注册验证码短信
     @GetMapping("/code/register")
@@ -58,10 +61,10 @@ public class SmsController extends BaseController {
             boolean sendResult = loginSmsService.sendSms(phone);
             if (sendResult) {
                 result.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
-                result.setMsg("注册短信成功发送");
+                result.setMsg("登录短信成功发送");
             } else {
                 result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-                result.setMsg("注册短信发送失败");
+                result.setMsg("登录短信发送失败");
             }
         } else {
             result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
@@ -70,4 +73,23 @@ public class SmsController extends BaseController {
         return result;
     }
 
+    //发送实名验证码
+    @GetMapping("/code/realname")
+    public RespResult sendCodeRealname(@RequestParam String phone) {
+        RespResult result = RespResult.fail();
+        if (CommonUtil.checkPhone(phone)) {
+            boolean sendResult = realnameSmsService.sendSms(phone);
+            if (sendResult) {
+                result.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+                result.setMsg("实名短信成功发送");
+            } else {
+                result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                result.setMsg("实名短信发送失败");
+            }
+        } else {
+            result.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            result.setMsg("电话格式错误");
+        }
+        return result;
+    }
 }

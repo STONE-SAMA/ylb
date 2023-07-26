@@ -11,4 +11,7 @@ public class RedisKeys {
     //登录时短信验证码 SMS:LOGIN:手机号
     public static final String REDIS_KEY_SMS_CODE_LOGIN = "SMS:LOGIN:";
 
+    //实名时短信验证码 SMS:REALNAME:手机号
+    public static final String REDIS_KEY_SMS_CODE_REALNAME = "SMS:REALNAME:";
+
 }

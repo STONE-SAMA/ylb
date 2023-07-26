@@ -1,6 +1,7 @@
 package com.demo.front.controller;
 
 import com.demo.api.model.User;
+import com.demo.api.pojo.UserAccountInfo;
 import com.demo.front.service.SmsService;
 import com.demo.front.service.impl.RealnameServiceImpl;
 import com.demo.front.view.RespResult;
@@ -9,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.example.common.constants.Constants;
 import org.example.common.util.CommonUtil;
 import org.example.common.util.JwtUtil;
@@ -122,12 +124,13 @@ public class UserController extends BaseController {
                                 @RequestParam String scode) throws Exception {
         RespResult result = RespResult.fail();
         if (loginSmsService.checkSmsCode(phone, scode)) {
-            User user = userService.userLogin(phone, scode);
+            User user = userService.userLogin(phone, pword);
             if (user != null) {
                 //登录成功，生成token
                 Map<String, Object> data = new HashMap<>();
                 data.put("uid", user.getId());
                 String jwtToken = jwtUtil.createJwt(data, 120);
+
                 result = RespResult.ok();
                 result.setMsg("登录成功！");
                 result.setAccessToken(jwtToken);
@@ -160,23 +163,57 @@ public class UserController extends BaseController {
                 StringUtils.isNotBlank(realnameVO.getIdCard())) {
             //判断用户是否已实名
             User user = userService.queryByPhone(realnameVO.getPhone());
-            if (user!=null){
-                if (StringUtils.isNotBlank(user.getName())){
+            if (user != null) {
+                if (StringUtils.isNotBlank(user.getName())) {
                     result.setMsg("已实名！");
-                }else {
+                } else {
                     //TODO 发送短信验证码
+
                     //调用三方接口
                     boolean realnameRes = realnameService.handleRealname(realnameVO.getPhone(), realnameVO.getName(), realnameVO.getIdCard());
-                    if (realnameRes){
+                    if (realnameRes) {
                         result = RespResult.ok();
                         result.setMsg("身份认证成功");
-                    }else {
+                    } else {
                         result.setMsg("身份认证失败");
                     }
                 }
             }
 
         }
+        return result;
+    }
+
+
+    /**
+     * 用户中心
+     *
+     * @return
+     */
+    @ApiOperation(value = "用户中心")
+    @GetMapping("/usercenter")
+    public RespResult userCenter(@RequestHeader("uid") Integer uid) {
+        RespResult result = RespResult.fail();
+        if (uid != null && uid > 0) {
+            UserAccountInfo userAccountInfo = userService.queryUserAllInfo(uid);
+            if (userAccountInfo != null) {
+                result = RespResult.ok();
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("name", userAccountInfo.getName());
+                data.put("phone", userAccountInfo.getPhone());
+                data.put("headerUrl", userAccountInfo.getHeaderImage());
+                if (userAccountInfo.getLastLoginTime() != null) {
+                    data.put("loginTime", DateFormatUtils.format(
+                            userAccountInfo.getLastLoginTime(), "yyyy-MM-dd HH:mm:ss"
+                    ));
+                } else {
+                    data.put("loginTime", null);
+                }
+                result.setData(data);
+            }
+        }
+
         return result;
     }
 

@@ -2,6 +2,7 @@ package com.demo.dataservice.service;
 
 import com.demo.api.model.FinanceAccount;
 import com.demo.api.model.User;
+import com.demo.api.pojo.UserAccountInfo;
 import com.demo.api.service.UserService;
 import com.demo.dataservice.mapper.FinanceAccountMapper;
 import com.demo.dataservice.mapper.UserMapper;
@@ -117,5 +118,20 @@ public class UserServiceImpl implements UserService {
     public boolean modifyRealname(String phone, String name, String idCard) {
         int rows = userMapper.updateRealname(phone, name, idCard);
         return rows > 0;
+    }
+
+    /**
+     * 获取用户和资金信息
+     *
+     * @param uid
+     * @return
+     */
+    @Override
+    public UserAccountInfo queryUserAllInfo(Integer uid) {
+        UserAccountInfo info = null;
+        if (uid != null && uid > 0) {
+            info = userMapper.selectUserAccountById(uid);
+        }
+        return info;
     }
 }

@@ -35,6 +35,7 @@ aliyun:
     smsSignId: 2e65b1bb3d054466b82f0c9d125465e2
     loginTemplateId: 02551a4313154fe4805794ca069d70bf
     registerTemplated: a09602b817fd47e59e7c6e603d3f088d
+    realnameTemplated: d6d95d8fb03c4246b944abcc1ea7efd8
   realname:
     appcode: e666a3f985324f5e87ab702ac766539b
 

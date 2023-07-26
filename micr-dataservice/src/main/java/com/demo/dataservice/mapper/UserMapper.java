@@ -1,6 +1,7 @@
 package com.demo.dataservice.mapper;
 
 import com.demo.api.model.User;
+import com.demo.api.pojo.UserAccountInfo;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -17,6 +18,9 @@ public interface UserMapper {
     //登录
     User selectLogin(@Param("phone") String phone, @Param("loginPassword") String password);
 
+    //查询用户信息
+    UserAccountInfo selectUserAccountById(Integer uid);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
@@ -30,4 +34,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     int updateRealname(@Param("phone") String phone, @Param("name") String name, @Param("idCard") String idCard);
+
+
 }

@@ -1,9 +1,6 @@
 package com.demo.front.controller;
 
-import com.demo.api.service.InvestService;
-import com.demo.api.service.PlatBaseInfoService;
-import com.demo.api.service.ProductService;
-import com.demo.api.service.UserService;
+import com.demo.api.service.*;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
@@ -32,5 +29,9 @@ public class BaseController {
     //用户服务
     @DubboReference(interfaceClass = UserService.class, version = "1.0")
     protected UserService userService;
+
+    //充值服务
+    @DubboReference(interfaceClass = RechargeService.class, version = "1.0")
+    protected RechargeService rechargeService;
 
 }

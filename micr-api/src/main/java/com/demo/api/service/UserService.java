@@ -1,6 +1,7 @@
 package com.demo.api.service;
 
 import com.demo.api.model.User;
+import com.demo.api.pojo.UserAccountInfo;
 
 public interface UserService {
 
@@ -15,4 +16,8 @@ public interface UserService {
 
     //更新实名认证信息
     boolean modifyRealname(String phone, String name, String idCard);
+
+    //获取用户和资金信息
+    UserAccountInfo queryUserAllInfo(Integer uid);
+
 }
