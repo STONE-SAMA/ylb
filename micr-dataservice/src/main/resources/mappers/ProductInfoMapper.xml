@@ -235,4 +235,20 @@
             version            = #{version,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <update id="updateLeftProductMoney">
+        update b_product_info
+        set left_product_money = left_product_money - #{money}
+        where id = #{id}
+          and (left_product_money - #{money} >= 0)
+    </update>
+
+    <update id="updateSelled">
+        update b_product_info
+        set product_status    = #{status},
+            product_full_time = now()
+        where id = #{id}
+    </update>
+
+
 </mapper>

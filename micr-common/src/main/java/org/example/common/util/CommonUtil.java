@@ -1,5 +1,6 @@
 package org.example.common.util;
 
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 public class CommonUtil {
@@ -38,5 +39,12 @@ public class CommonUtil {
         return p.matcher(phone).matches();
     }
 
+    //比较BigDecimal  true:n1>=n2
+    public static boolean ge(BigDecimal n1, BigDecimal n2) {
+        if (n1 == null || n2 == null) {
+            throw new RuntimeException("参数为null");
+        }
+        return n1.compareTo(n2) >= 0;
+    }
 
 }

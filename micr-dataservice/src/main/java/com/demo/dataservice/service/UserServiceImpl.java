@@ -134,4 +134,19 @@ public class UserServiceImpl implements UserService {
         }
         return info;
     }
+
+    /**
+     * 查询用户
+     *
+     * @param uid
+     * @return
+     */
+    @Override
+    public User queryById(Integer uid) {
+        User user = null;
+        if (user != null && uid > 0) {
+            user = userMapper.selectByPrimaryKey(uid);
+        }
+        return user;
+    }
 }

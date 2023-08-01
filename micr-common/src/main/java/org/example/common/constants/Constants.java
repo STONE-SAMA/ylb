@@ -8,11 +8,19 @@ public class Constants {
 
     /*****产品类型*********/
     //新手宝
-    public static final  int PRODUCT_TYPE_XINSHOUBAO =  0;
+    public static final int PRODUCT_TYPE_XINSHOUBAO =  0;
     //优选
-    public static final  int PRODUCT_TYPE_YOUXUAN = 1;
+    public static final int PRODUCT_TYPE_YOUXUAN = 1;
     //散标
-    public static final  int PRODUCT_TYPE_SANBIAO = 2;
+    public static final int PRODUCT_TYPE_SANBIAO = 2;
 
 
+    /*****产品状态*********/
+    public static final int PRODUCT_STATUS_SELLING = 0;//销售中
+    public static final int PRODUCT_STATUS_SOLDOUT = 1;//售罄
+    public static final int PRODUCT_STATUS_PlAN = 2;//收益计划
+
+    /*****投资状态*********/
+    public static final int INVEST_STATUS_SUCCESS = 1;//成功
+    public static final int INVEST_STATUS_FAIL = 2;//失败
 }

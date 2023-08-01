@@ -203,6 +203,7 @@ public class UserController extends BaseController {
                 data.put("name", userAccountInfo.getName());
                 data.put("phone", userAccountInfo.getPhone());
                 data.put("headerUrl", userAccountInfo.getHeaderImage());
+                data.put("money",userAccountInfo.getAvailableMoney());
                 if (userAccountInfo.getLastLoginTime() != null) {
                     data.put("loginTime", DateFormatUtils.format(
                             userAccountInfo.getLastLoginTime(), "yyyy-MM-dd HH:mm:ss"
