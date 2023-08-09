@@ -23,4 +23,14 @@ public class Constants {
     /*****投资状态*********/
     public static final int INVEST_STATUS_SUCCESS = 1;//成功
     public static final int INVEST_STATUS_FAIL = 2;//失败
+
+    /*****收益状态*********/
+    public static final int INCOME_STATUS_PLAN = 0;//生成收益计划
+    public static final int INCOME_STATUS_BACK = 1;//收益返还
+
+    /*****充值状态*********/
+    public static final int RECHARGE_STATUS_PROCESSING = 0;//充值中
+    public static final int RECHARGE_STATUS_SUCCESS = 1;//成功
+    public static final int RECHARGE_STATUS_FAIL = 2;//失败
+
 }

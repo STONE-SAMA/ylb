@@ -23,4 +23,12 @@ public interface FinanceAccountMapper {
 
     //更新资金
     int updateAvailableMonryByInvest(@Param("uid") Integer uid, @Param("money") BigDecimal money);
+
+    //收益返还，更新资金
+    int updateAvailableMoneyByIncomeBack(@Param("uid") Integer uid,
+                                         @Param("bidMoney") BigDecimal bidMoney,
+                                         @Param("incomeMoney") BigDecimal incomeMoney);
+
+    //更新充值金额
+    int updateAvailableMoneyByRecharge(@Param("uid") Integer uid, @Param("rechargeMoney") BigDecimal rechargeMoney);
 }

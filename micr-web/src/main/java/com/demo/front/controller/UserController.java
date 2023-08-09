@@ -192,7 +192,7 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "用户中心")
     @GetMapping("/usercenter")
-    public RespResult userCenter(@RequestHeader("uid") Integer uid) {
+    public RespResult userCenter(@RequestHeader(value = "uid", required = false) Integer uid) {
         RespResult result = RespResult.fail();
         if (uid != null && uid > 0) {
             UserAccountInfo userAccountInfo = userService.queryUserAllInfo(uid);

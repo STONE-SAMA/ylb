@@ -4,6 +4,7 @@ import com.demo.api.model.ProductInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public interface ProductInfoMapper {
@@ -39,4 +40,9 @@ public interface ProductInfoMapper {
     //更新产品满标状态
     int updateSelled(@Param("id") Integer productId, @Param("status") int productStatusSoldout);
 
+    //满标的理财列表
+    List<ProductInfo> selectFullTimeProducts(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
+
+    //更新状态
+    int updateStatus(@Param("id") Integer id, @Param("newStatus") int newStatus);
 }

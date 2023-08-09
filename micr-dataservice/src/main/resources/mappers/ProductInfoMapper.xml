@@ -54,6 +54,16 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <select id="selectFullTimeProducts" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from b_product_info
+        where product_status = 1
+        and product_full_time >= #{beginTime}
+        and product_full_time &lt; #{endTime}
+        order by id
+    </select>
+
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -247,6 +257,12 @@
         update b_product_info
         set product_status    = #{status},
             product_full_time = now()
+        where id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        update b_product_info
+        set product_status = #{newStatus}
         where id = #{id}
     </update>
 

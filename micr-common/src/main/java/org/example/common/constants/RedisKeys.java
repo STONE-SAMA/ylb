@@ -14,4 +14,10 @@ public class RedisKeys {
     //实名时短信验证码 SMS:REALNAME:手机号
     public static final String REDIS_KEY_SMS_CODE_REALNAME = "SMS:REALNAME:";
 
+    //redis自增
+    public static final String KEY_RECHARGE_ORDERID = "RECHARGE:ORDERID:SEQ";
+
+    //订单号id
+    public static final String KEY_ORDERID_SET = "RECHARGE:ORDERID:SET";
+
 }

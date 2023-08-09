@@ -23,4 +23,8 @@ public interface RechargeRecordMapper {
                                      @Param("pageSize") Integer pageSize);
 
 
+    RechargeRecord selectByRechargeNo(@Param("rechargeNo") String orderId);
+
+    //更新状态
+    int updateStatus(@Param("id") Integer id, @Param("newStatus") int rechargeStatusSuccess);
 }

@@ -15,4 +15,8 @@ public interface RechargeService {
      */
     List<RechargeRecord> queryByUid(Integer uid, Integer pageNo, Integer pageSize);
 
+    int addRechargeRecord(RechargeRecord record);
+
+    //处理后续充值
+    int handleKQNotify(String orderId, String payAmount, String payResult);
 }

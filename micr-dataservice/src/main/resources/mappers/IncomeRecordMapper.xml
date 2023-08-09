@@ -20,6 +20,15 @@
     from b_income_record
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectExpiredIncome" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"></include>
+      from b_income_record
+      where income_status = 0
+      and income_date = #{expiredDate}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from b_income_record
     where id = #{id,jdbcType=INTEGER}
